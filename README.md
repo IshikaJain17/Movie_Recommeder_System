@@ -1,17 +1,19 @@
 # Movie Recommender System
 
+![App Screenshot](./Screenshot%202025-04-05%20043426.png)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A content-based movie recommendation system that suggests similar movies based on user preferences.
 
-## Features
+## ✨ Features
 
 - Recommends movies based on content similarity
 - Uses TMDB 5000 dataset for comprehensive recommendations
 - Simple Flask-based web interface
 - Deployable with Heroku (Procfile included)
 
-## Installation
+## 🛠️ Installation
 
 1. Clone the repository:
 ```bash
@@ -29,7 +31,7 @@ pip install -r requirements.txt
 - `tmdb_5000_credits.csv`
 Place them in the project root directory
 
-## Usage
+## 🚀 Usage
 
 Run the Flask application:
 ```bash
@@ -38,7 +40,7 @@ python app.py
 
 Access the web interface at `http://localhost:5000`
 
-## Technology Stack
+## 💻 Technology Stack
 
 - Python 3
 - Flask (Web Framework)
@@ -46,12 +48,12 @@ Access the web interface at `http://localhost:5000`
 - Scikit-learn (Machine Learning)
 - Heroku (Deployment)
 
-## Dataset
+## 📊 Dataset
 
 The system uses the [TMDB 5000 Movie Dataset](https://www.kaggle.com/tmdb/tmdb-movie-metadata) containing:
 - 5000 movies
 - Metadata including cast, crew, plot keywords, etc.
 
-## License
+## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
