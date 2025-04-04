@@ -1,36 +1,46 @@
 import streamlit as st
 import pandas as pd
 import pickle
-import requests #for api
+import requests  # For TMDB API integration
 
 def fetch_poster(movie_id):
+    """Fetch movie poster URL from TMDB API for given movie ID"""
     response = requests.get('https://api.themoviedb.org/3/movie/{}?api_key=218b31b0f7a9f51423c8d44537128b21&language=en-US'.format(movie_id))
     data = response.json()
-
     return "https://image.tmdb.org/t/p/w500/" + data['poster_path']
 
-def recommend(movie): #for top 5 movie recommendation
+def recommend(movie):
+    """
+    Generate top 5 movie recommendations based on content similarity
+    
+    Args:
+        movie (str): Movie title to base recommendations on
+    
+    Returns:
+        tuple: (recommended_movie_titles, recommended_movie_posters)
+    """
     movie_index = movies[movies['title'] == movie].index[0]
     distances = similarity[movie_index]
-    movies_list = sorted(list(enumerate(distances)), reverse=True, key = lambda x:x[1])[1:6]  #sorting the data on the basis of distance which is [1] and enumerated function for index of that particular movie vector [1:6] for fetching top 5 similar movies
+    # Get top 5 most similar movies (skip first as it's the input movie itself)
+    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
 
     recommended_movies = []
     recommended_movies_posters = []
-    for i in movies_list :
-       movie_id = movies.iloc[i[0]].movie_id
-       recommended_movies.append(movies.iloc[i[0]].title) #i[0] means movie index not distance :) and new_def.iloc for fetching text of that index and .title is for movie name
-       #fetch poster from API
-       recommended_movies_posters.append(fetch_poster(movie_id))
+    for i in movies_list:
+        movie_id = movies.iloc[i[0]].movie_id
+        recommended_movies.append(movies.iloc[i[0]].title)
+        recommended_movies_posters.append(fetch_poster(movie_id))
     return recommended_movies, recommended_movies_posters
 
+# Load preprocessed movie data and similarity matrix
 movies_dict = pickle.load(open('movies_dict.pkl', 'rb'))
 movies = pd.DataFrame(movies_dict)
-
 similarity = pickle.load(open('similarity.pkl', 'rb'))
+# Streamlit UI components
 st.title('Movie Recommender System')
 
 selected_movie_name = st.selectbox(
-'How would you like to be contracted?',
+'Select a movie to get recommendations:',
 movies['title'].values)
 
 if st.button('Recommend'):
