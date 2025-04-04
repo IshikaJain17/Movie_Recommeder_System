@@ -1,4 +1,19 @@
-venv
-text.txt/
-tmdb_5000_credits.csv/
-tmdb_5000_movies.csv/
+# Large data files
+*.pkl
+*.csv
+
+# System files
+.DS_Store
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment files
+.env
+venv/
+
+# Specific file exclusions
+text.txt
+tmdb_5000_credits.csv
+tmdb_5000_movies.csv
